@@ -6,3 +6,66 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       String @id @default(uuid())
+  name     String
+  email    String
+  password String
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("users")
+}
+
+model Developer {
+  id           String       @id @default(uuid())
+  name         String
+  last_name    String
+  age          String
+  role         String
+  icon         String
+  technologies Technology[]
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  project    Project @relation(fields: [project_id], references: [id])
+  project_id String
+
+  @@map("developers")
+}
+
+model Technology {
+  id          String @id @default(uuid())
+  name        String
+  area        String
+  description String
+  advantages  String
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  developer    Developer @relation(fields: [developer_id], references: [id])
+  developer_id String
+  project      Project   @relation(fields: [project_id], references: [id])
+  project_id   String
+
+  @@map("technologies")
+}
+
+model Project {
+  id           String       @id @default(uuid())
+  name         String
+  description  String[]
+  tags         String[]
+  icon         String
+  developers   Developer[]
+  technologies Technology[]
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("projects")
+}

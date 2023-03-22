@@ -25,15 +25,16 @@ model Developer {
   name         String
   last_name    String
   age          String
-  role         String
   icon         String
   technologies Technology[]
 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  project    Project @relation(fields: [project_id], references: [id])
-  project_id String
+  project     Project  @relation(fields: [project_id], references: [id])
+  project_id  String
+  category    Category @relation(fields: [category_id], references: [id])
+  category_id String
 
   @@map("developers")
 }
@@ -41,9 +42,7 @@ model Developer {
 model Technology {
   id          String @id @default(uuid())
   name        String
-  area        String
   description String
-  advantages  String
 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
@@ -52,16 +51,33 @@ model Technology {
   developer_id String
   project      Project   @relation(fields: [project_id], references: [id])
   project_id   String
+  category     Category  @relation(fields: [category_id], references: [id])
+  category_id  String
 
   @@map("technologies")
+}
+
+model Category {
+  id           String       @id @default(uuid())
+  name         String
+  technologies Technology[]
+  developers   Developer[]
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  project    Project @relation(fields: [project_id], references: [id])
+  project_id String
+
+  @@map("categories")
 }
 
 model Project {
   id           String       @id @default(uuid())
   name         String
   description  String[]
-  tags         String[]
   icon         String
+  categories   Category[]
   developers   Developer[]
   technologies Technology[]
 

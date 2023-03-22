@@ -1,5 +1,9 @@
 import { Request, Response, Router } from 'express';
 
+import { isAuthenticated } from '../../../../middlewares/isAuthenticated';
+
+import CreateTechnologyController from '../controllers/CreateTechnologyController';
+
 const technologiesRouter = Router();
 
 // Get all projects
@@ -7,10 +11,7 @@ technologiesRouter.get('/technologies', (req: Request, res: Response) =>
   res.json({ ok: 'Get all technology' })
 );
 
-// Create technology
-technologiesRouter.post('/technologies', (req: Request, res: Response) =>
-  res.json({ ok: 'Create technology' })
-);
+technologiesRouter.post('/technologies', isAuthenticated, CreateTechnologyController.handle);
 
 // Edit technology
 technologiesRouter.put('/technologies/:id', (req: Request, res: Response) =>

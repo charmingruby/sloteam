@@ -7,9 +7,13 @@ interface CreateUserTypes {
   imagePath: string;
 }
 
-class CreateUserRepository {
+interface FindByEmailProps {
+  email: string;
+}
+
+class UserRepositories {
   async create({ name, email, passwordHash, imagePath }: CreateUserTypes) {
-    const user = await prisma.user.create({
+    return await prisma.user.create({
       data: {
         name: name,
         email: email,
@@ -23,9 +27,21 @@ class CreateUserRepository {
         created_at: true,
       }
     });
+  }
 
-    return user;
+  async findByEmail({ email }: FindByEmailProps) {
+    return await prisma.user.findFirst({
+      where: {
+        email: email
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        password: true,
+      }
+    });
   }
 }
 
-export default new CreateUserRepository();
+export default new UserRepositories();

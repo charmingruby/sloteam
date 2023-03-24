@@ -1,14 +1,30 @@
 import { CreateUserDTO } from '../dtos/CreateUserDTO';
-import CreateUserRepository from '../repositories/CreateUserRepository';
-import CommonRepository from '../repositories/CommonRepository';
+import CreateUserRepository from '../repositories/UserRepositories';
+import UserRepositories from '../repositories/UserRepositories';
 import { hash } from 'bcryptjs';
 
 class CreateUserUseCase {
   async execute({ name, email, password, imagePath }: CreateUserDTO) {
 
-    const userAlreadyExists = await CommonRepository.findByEmail({ email });
+    if (!name) {
+      throw new Error('Name is requred');
+    }
+
+    if (!email)
+      throw new Error('E-mail is requred');
+
+
+    if (!password)
+      throw new Error('Password is requred');
+
+
+    if (!imagePath)
+      throw new Error('Image is requred');
+
+
+    const userAlreadyExists = await UserRepositories.findByEmail({ email });
     if (userAlreadyExists) {
-      throw new Error('This user is already in use');
+      throw new Error('This e-mail is already in use');
     }
 
     const passwordHash = await hash(password, 8);

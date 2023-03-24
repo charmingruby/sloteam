@@ -27,14 +27,11 @@ model Developer {
   age          String
   icon         String
   technologies Technology[]
+  projects     Project[]
+  roles        Role[]
 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
-
-  project     Project  @relation(fields: [project_id], references: [id])
-  project_id  String
-  category    Category @relation(fields: [category_id], references: [id])
-  category_id String
 
   @@map("developers")
 }
@@ -47,29 +44,23 @@ model Technology {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  developer    Developer @relation(fields: [developer_id], references: [id])
-  developer_id String
-  project      Project   @relation(fields: [project_id], references: [id])
-  project_id   String
-  category     Category  @relation(fields: [category_id], references: [id])
-  category_id  String
+  project     Project    @relation(fields: [project_id], references: [id])
+  project_id  String
+  Developer   Developer? @relation(fields: [developerId], references: [id])
+  developerId String?
 
   @@map("technologies")
 }
 
-model Category {
-  id           String       @id @default(uuid())
-  name         String
-  technologies Technology[]
-  developers   Developer[]
+model Role {
+  id         String      @id @default(uuid())
+  name       String
+  developers Developer[]
 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  project    Project @relation(fields: [project_id], references: [id])
-  project_id String
-
-  @@map("categories")
+  @@map("roles")
 }
 
 model Project {
@@ -77,7 +68,6 @@ model Project {
   name         String
   description  String[]
   icon         String
-  categories   Category[]
   developers   Developer[]
   technologies Technology[]
 

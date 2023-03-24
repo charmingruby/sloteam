@@ -1,12 +1,19 @@
 import { compare } from 'bcryptjs';
 import { AuthUserDTO } from '../dtos/AuthUserDTO';
-import CommonRepository from '../repositories/CommonRepository';
+import UserRepositories from '../repositories/UserRepositories';
 import { sign } from 'jsonwebtoken';
 
 class AuthUserUseCase {
   async execute({ email, password }: AuthUserDTO) {
+    if (!email)
+      throw new Error('E-mail is requred');
 
-    const user = await CommonRepository.findByEmail({ email });
+
+    if (!password)
+      throw new Error('Password is requred');
+
+
+    const user = await UserRepositories.findByEmail({ email });
     if (!user) {
       throw new Error('Incorrect e-mail or password ');
     }

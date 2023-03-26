@@ -3,8 +3,9 @@ import CreateRoleUseCase from '../../useCases/CreateRoleUseCase';
 
 class CreateRoleController {
   async handle(req: Request, res: Response) {
-    const role = await CreateRoleUseCase.execute();
-    return role;
+    const { name } = req.body;
+    const role = await CreateRoleUseCase.execute({ name });
+    return res.json(role);
   }
 }
 

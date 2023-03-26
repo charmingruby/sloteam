@@ -24,8 +24,9 @@ model Developer {
   id           String       @id @default(uuid())
   name         String
   last_name    String
-  age          String
+  age          Int
   icon         String
+  email        String
   technologies Technology[]
   projects     Project[]
   roles        Role[]

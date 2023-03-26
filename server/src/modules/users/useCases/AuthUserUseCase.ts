@@ -8,20 +8,16 @@ class AuthUserUseCase {
     if (!email)
       throw new Error('E-mail is requred');
 
-
     if (!password)
       throw new Error('Password is requred');
 
-
     const user = await UserRepositories.findByEmail({ email });
-    if (!user) {
+    if (!user)
       throw new Error('Incorrect e-mail or password ');
-    }
 
     const passwordMatch = await compare(password, user.password);
-    if (!passwordMatch) {
+    if (!passwordMatch)
       throw new Error('Incorrect e-mail or password ');
-    }
 
     const token = sign(
       {

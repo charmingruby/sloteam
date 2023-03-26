@@ -1,14 +1,18 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
 
 import CreateRoleController from '../controllers/CreateRoleController';
+import DeleteRoleController from '../controllers/DeleteRoleController';
+import ListRolesController from '../controllers/ListRolesController';
+import RoleDetailsController from '../controllers/RoleDetailsController';
+import UpdateRoleController from '../controllers/UpdateRoleController';
 
 const rolesRouter = Router();
 
 rolesRouter.post('/roles', CreateRoleController.handle);
-rolesRouter.get('/roles', (req: Request, res: Response) => res.json({ roles: 'Get all roles' }));
-rolesRouter.put('/roles/:roleId', (req: Request, res: Response) => res.json({ roles: 'Edit one role' }));
-rolesRouter.get('/roles/:roleId', (req: Request, res: Response) => res.json({ roles: 'Get one role' }));
-rolesRouter.delete('/roles/:roleId', (req: Request, res: Response) => res.json({ roles: 'Delete one role' }));
+rolesRouter.get('/roles', ListRolesController.handle);
+rolesRouter.put('/roles/:roleId', UpdateRoleController.handle);
+rolesRouter.get('/roles/:roleId', RoleDetailsController.handle);
+rolesRouter.delete('/roles/:roleId', DeleteRoleController.handle);
 
 rolesRouter.get('/roles/:roleId/developers');
 

@@ -1,4 +1,4 @@
-import DeveloperRepositories from '../repositories/DeveloperRepositories';
+import DevelopersRepository from '../repositories/DevelopersRepository';
 
 class CreateDeveloperUseCase {
   async execute({ name, lastName, age, iconPath, email }) {
@@ -18,11 +18,11 @@ class CreateDeveloperUseCase {
       throw new Error('E-mail is required');
     }
 
-    const developerAlreadyExists = await DeveloperRepositories.findByEmail(email);
+    const developerAlreadyExists = await DevelopersRepository.findByEmail(email);
     if (developerAlreadyExists)
       throw new Error('This e-mail is already in use');
 
-    const developer = await DeveloperRepositories.create({ name, lastName, age, iconPath, email });
+    const developer = await DevelopersRepository.create({ name, lastName, age, iconPath, email });
     return developer;
   }
 

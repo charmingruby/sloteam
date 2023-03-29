@@ -1,12 +1,12 @@
-import RoleRepositories from '../repositories/RoleRepositories';
+import RolesRepository from '../repositories/RolesRepository';
 
 class UpdateRoleUseCase {
   async execute(roleId: string) {
-    const roleExists = await RoleRepositories.findById(roleId);
+    const roleExists = await RolesRepository.findById(roleId);
     if (!roleExists)
       throw new Error('This role doesn\'t exists');
 
-    const role = await RoleRepositories.delete(roleId);
+    const role = await RolesRepository.delete(roleId);
 
     return role;
   }

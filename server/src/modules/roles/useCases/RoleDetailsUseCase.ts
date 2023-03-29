@@ -1,9 +1,8 @@
-import { RolesDTO } from '../dtos/RolesDTO';
-import RoleRepositories from '../repositories/RoleRepositories';
+import RolesRepository from '../repositories/RolesRepository';
 
 class RoleDetailsUseCase {
   async execute(roleId: string) {
-    const role = await RoleRepositories.findById(roleId);
+    const role = await RolesRepository.findById(roleId);
     if (!role)
       throw new Error('This role doesn\'t exists');
 

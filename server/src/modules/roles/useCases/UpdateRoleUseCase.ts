@@ -1,5 +1,4 @@
-import { RolesDTO } from '../dtos/RolesDTO';
-import RoleRepositories from '../repositories/RoleRepositories';
+import RolesRepository from '../repositories/RolesRepository';
 
 interface UpdateRoleTypes {
   name: string
@@ -8,11 +7,11 @@ interface UpdateRoleTypes {
 
 class UpdateRoleUseCase {
   async execute({ name, roleId }: UpdateRoleTypes) {
-    const roleExists = await RoleRepositories.findById(roleId);
+    const roleExists = await RolesRepository.findById(roleId);
     if (!roleExists)
       throw new Error('This role doesn\'t exists');
 
-    const role = await RoleRepositories.update({ name, roleId });
+    const role = await RolesRepository.update({ name, roleId });
 
     return role;
   }

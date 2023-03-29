@@ -4,18 +4,17 @@ import CreateDeveloperController from '../controllers/CreateDeveloperController'
 
 import multer from 'multer';
 import uploadConfig from '../../../../libs/multer';
+import ListDevelopersController from '../controllers/ListDevelopersController';
+import { isAuthenticated } from '../../../../middlewares/isAuthenticated';
+import DeveloperDetailsController from '../controllers/DeveloperDetailsController';
 
 const developersRouter = Router();
 
 const upload = multer(uploadConfig.upload('./developers'));
 
-developersRouter.get('/developers', (req: Request, res: Response) => {
-  return res.json({ ok: 'Get all developers' });
-});
+developersRouter.get('/developers', isAuthenticated, ListDevelopersController.handle);
 
-developersRouter.get('/developers/:id', (req: Request, res: Response) => {
-  return res.json({ ok: 'Get one developer' });
-});
+developersRouter.get('/developers/:id', isAuthenticated, DeveloperDetailsController.handle);
 
 developersRouter.post('/developers', upload.single('file'), CreateDeveloperController.handle);
 

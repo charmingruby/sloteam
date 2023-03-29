@@ -21,7 +21,7 @@ model User {
 }
 
 model Developer {
-  id           String       @id @default(uuid())
+  id           String            @id @default(uuid())
   name         String
   last_name    String
   age          Int
@@ -29,7 +29,7 @@ model Developer {
   email        String
   technologies Technology[]
   projects     Project[]
-  roles        Role[]
+  roles        DevelopersRoles[]
 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
@@ -54,14 +54,24 @@ model Technology {
 }
 
 model Role {
-  id         String      @id @default(uuid())
+  id         String            @id @default(uuid())
   name       String
-  developers Developer[]
+  developers DevelopersRoles[]
 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
   @@map("roles")
+}
+
+model DevelopersRoles {
+  developer   Developer @relation(fields: [developerId], references: [id])
+  developerId String
+  role        Role      @relation(fields: [roleId], references: [id])
+  roleId      String
+
+  @@id([developerId, roleId])
+  @@map("developers_roles")
 }
 
 model Project {

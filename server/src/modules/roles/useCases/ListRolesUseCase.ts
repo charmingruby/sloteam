@@ -1,8 +1,8 @@
-import RoleRepositories from '../repositories/RoleRepositories';
+import RolesRepository from '../repositories/RolesRepository';
 
 class ListRolesUseCase {
   async execute() {
-    const roles = await RoleRepositories.index();
+    const roles = await RolesRepository.index();
     return roles;
   }
 }

@@ -1,17 +1,17 @@
 import { RolesDTO } from '../dtos/RolesDTO';
-import RoleRepositories from '../repositories/RoleRepositories';
+import RolesRepository from '../repositories/RolesRepository';
 
 class CreateRoleUseCase {
   async execute({ name }: RolesDTO) {
     if (!name)
       throw new Error('Name is required');
 
-    const roleAlreadyExists = await RoleRepositories.findByName({ name });
+    const roleAlreadyExists = await RolesRepository.findByName({ name });
     if (roleAlreadyExists)
       throw new Error('This role already exists');
 
 
-    const role = await RoleRepositories.create({ name });
+    const role = await RolesRepository.create({ name });
 
     return role;
   }

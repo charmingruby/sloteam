@@ -1,7 +1,11 @@
 import { prisma } from '../../../libs/prisma';
 import { DevelopersDTO } from '../dtos/DevelopersDTO';
 
-class DeveloperRepositories {
+class DevelopersRepository {
+  async index() {
+    return await prisma.developer.findMany();
+  }
+
   async create({ name, lastName, age, iconPath, email }: DevelopersDTO) {
     return await prisma.developer.create({
       data: {
@@ -10,6 +14,14 @@ class DeveloperRepositories {
         age: age,
         icon: iconPath,
         email: email
+      }
+    });
+  }
+
+  async findById(developerId: string) {
+    return prisma.developer.findFirst({
+      where: {
+        id: developerId
       }
     });
   }
@@ -27,4 +39,4 @@ class DeveloperRepositories {
 }
 
 
-export default new DeveloperRepositories();
+export default new DevelopersRepository();

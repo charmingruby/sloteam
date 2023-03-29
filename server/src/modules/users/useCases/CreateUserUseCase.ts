@@ -1,6 +1,6 @@
 import { CreateUserDTO } from '../dtos/CreateUserDTO';
-import CreateUserRepository from '../repositories/UserRepositories';
-import UserRepositories from '../repositories/UserRepositories';
+import CreateUserRepository from '../repositories/UsersRepository';
+import UsersRepository from '../repositories/UsersRepository';
 import { hash } from 'bcryptjs';
 
 class CreateUserUseCase {
@@ -17,7 +17,7 @@ class CreateUserUseCase {
     if (!imagePath)
       throw new Error('Image is requred');
 
-    const userAlreadyExists = await UserRepositories.findByEmail({ email });
+    const userAlreadyExists = await UsersRepository.findByEmail({ email });
     if (userAlreadyExists)
       throw new Error('This e-mail is already in use');
 

@@ -13,6 +13,9 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
 
   const [, token] = authToken.split(' ');
 
+  console.log(process.env.JWT_SECRET
+  );
+
   try {
     const { sub } = verify(
       token,
@@ -22,6 +25,4 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
   } catch (error) {
     return res.status(401).end();
   }
-
-  return next();
 }

@@ -49,8 +49,27 @@ class DevelopersRepository {
     });
   }
 
-  async update() {
-    return await { ok: true };
+  async update({ id, name, lastName, age, iconPath, email }: DevelopersDTO) {
+    return await prisma.developer.update({
+      where: {
+        id: id
+      },
+      data: {
+        name: name,
+        last_name: lastName,
+        age: age,
+        icon: iconPath,
+        email: email
+      }
+    });
+  }
+
+  async delete(id: string) {
+    return await prisma.developer.delete({
+      where: {
+        id: id
+      }
+    });
   }
 }
 

@@ -22,6 +22,18 @@ class DevelopersRepository {
     return prisma.developer.findFirst({
       where: {
         id: developerId
+      },
+      include: {
+        roles: {
+          include: {
+            role: {
+              select: {
+                id: true,
+                name: true
+              }
+            }
+          }
+        }
       }
     });
   }
@@ -35,6 +47,10 @@ class DevelopersRepository {
         id: true,
       }
     });
+  }
+
+  async update() {
+    return await { ok: true };
   }
 }
 

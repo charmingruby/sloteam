@@ -18,10 +18,18 @@ class RolesRepository {
       include: {
         developers: {
           include: {
-            developer: true
+            developer: {
+              select: {
+                id: true,
+                name: true,
+                last_name: true,
+                email: true,
+                icon: true
+              }
+            }
           }
         }
-      }
+      },
     });
   }
 
@@ -33,7 +41,15 @@ class RolesRepository {
       include: {
         developers: {
           include: {
-            developer: true
+            developer: {
+              select: {
+                id: true,
+                name: true,
+                last_name: true,
+                email: true,
+                icon: true
+              }
+            }
           },
         },
       },

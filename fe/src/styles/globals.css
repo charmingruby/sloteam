@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-secondary-dark text-light-main scrollbar-thin scrollbar-track-secondary-darker scrollbar-thumb-secondary-light
+    }
+
+    h1 {
+        @apply text-[48px]
+    }
+
+    h2 {
+        @apply text-[40px]
+    }
+
+    h3 {
+        @apply text-[32px]
+    }
+
+    h4 {
+        @apply text-[28px]
+    }
+
+    h5 {
+        @apply text-[24px]
+    }
+
+    h6 {
+        @apply text-[18px]
+    }
+
+    p {
+        @apply text-[16px]}
+
+    small {
+        @apply text-[14px]
+    }
+}
+
+@layer components {
+  .container {
+    @apply w-full max-w-5xl my-0 mx-auto
+  }
+}

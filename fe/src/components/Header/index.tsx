@@ -9,7 +9,7 @@ export function Header() {
     'Home', 'Projects', 'Developers', 'Technologies', 'Profile'
   ];
 
-  const navigationLinks: String[] = ['Home', 'About', 'Contact', 'Developers'];
+  const navigationLinks: String[] = ['Home', 'About', 'Projects', 'Social'];
 
   const authorized = true;
 
@@ -17,7 +17,7 @@ export function Header() {
     <header className="flex items-center h-20 bg-secondary-dark border-b border-b-secondary-light">
       <div className="w-full h-20 max-w-7xl my-0 mx-auto flex items-center justify-between">
         <Image src={Logo} alt="Sloteam Logo" className="w-36" />
-        <nav className="flex gap-6 text-md">
+        <nav className="flex gap-6 text-lg">
           {
             authorized
               ?
@@ -35,12 +35,12 @@ export function Header() {
           }
         </nav>
         <div className="flex">
-          <Link href='/' className="flex items-center ">
-            <FaUser className="text-primary-main w-3" />
-            <span className="ml-1 uppercase font-semibold text-sm">Sign In</span>
+          <Link href='/' className="flex items-center">
+            <FaUser className="text-primary-main text-sm" />
+            <span className="ml-1 uppercase font-semibold text-xs">Sign In</span>
           </Link>
-          <Link href='/' className="hover:bg-primary-main border border-primary-main py-2 px-4 rounded-md transition-colors ml-4">
-            <span className="uppercase font-semibold text-sm">Sign Up</span>
+          <Link href='/' className="hover:bg-primary-main border border-primary-main py-1 px-6 rounded-md transition-colors ml-4">
+            <span className="uppercase font-semibold text-xs">Sign Up</span>
           </Link>
         </div>
       </div>

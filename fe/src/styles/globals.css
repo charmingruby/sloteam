@@ -7,6 +7,10 @@
         @apply bg-secondary-dark text-light-main scrollbar-thin scrollbar-track-secondary-darker scrollbar-thumb-secondary-light
     }
 
+    button {
+      @apply focus:outline-none cursor-auto;
+    }
+
     h1 {
         @apply text-[48px]
     }
@@ -45,6 +49,14 @@
   }
 
   .primary-button {
-    @apply focus:ring-2 ring-primary-dark hover:bg-primary-light transition-colors bg-primary-main text-base font-extrabold uppercase px-12 py-3 text-secondary-main rounded-md shadow-lg flex items-center
+    @apply hover:bg-primary-light active:bg-primary-dark transition-colors bg-primary-main text-base font-bold uppercase px-12 py-3 text-secondary-main rounded-lg shadow-lg flex items-center cursor-pointer
+  }
+
+  .secondary-button {
+    @apply hover:bg-primary-light active:bg-primary-dark transition-colors bg-none border-2 border-primary-main text-base font-bold uppercase px-12 py-3 text-light-main hover:text-secondary-main rounded-md shadow-lg flex items-center cursor-pointer
+  }
+
+  .disabled-button {
+    @apply bg-light-darker text-base font-bold uppercase px-12 py-3 text-light-main rounded-md shadow-lg flex items-center cursor-not-allowed opacity-80
   }
 }

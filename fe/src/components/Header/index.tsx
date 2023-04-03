@@ -4,14 +4,16 @@ import Logo from './../../assets/images/logos/logo-w-description.svg';
 
 import { FaUser } from 'react-icons/fa';
 
-export function Header() {
+interface HeaderProps {
+  logged?: boolean
+}
+
+export function Header({ logged = false }: HeaderProps) {
   const unauthorizedNavigationLinks: String[] = [
     'Home', 'Projects', 'Developers', 'Technologies', 'Profile'
   ];
 
   const navigationLinks: String[] = ['Home', 'About', 'Projects', 'Social'];
-
-  const authorized = true;
 
   return (
     <header className="flex items-center h-20 bg-secondary-dark border-b border-b-secondary-light">
@@ -19,7 +21,7 @@ export function Header() {
         <Image src={Logo} alt="Sloteam Logo" className="w-36" />
         <nav className="flex gap-6 text-lg">
           {
-            authorized
+            !logged
               ?
               navigationLinks.map((navigationLink, index) => (
                 <Link href={`/${navigationLink.toLocaleLowerCase}`} className="group flex items-center border-b border-b-secondary-light hover:border-b-primary-main h-20 transition-colors" key={index}>

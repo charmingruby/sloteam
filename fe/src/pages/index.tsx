@@ -1,22 +1,22 @@
-import { SEO } from '@/components/SEO';
 import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
+import { Layout } from '@/components/Layout';
+import { Title } from '@/components/Title';
 
 import Image from 'next/image';
 import HeroIllustration from '../assets/images/HeroIllustration.svg';
 import PeopleWorkingIllustration from '../assets/images/PeopleWorkingIllustration.svg';
 
-import { HiChevronRight } from 'react-icons/hi';
 import { BsCheck } from 'react-icons/bs';
+import { Button } from '@/components/Button';
 
 export default function Home() {
   const facilitiesList: string[] = ['Easy use', 'Security', 'Organized', 'Complete', 'Saves time'];
 
   return (
-    <>
-      <SEO message='An App for Slothes' />
-
-      <main>
+    <Layout
+      SEOMessage='An App for Slothes'
+    >
+      <>
         <div className='flex flex-col flex-1 min-h-screen h-full'>
           <Header />
           <div className='container flex items-center justify-center grow'>
@@ -34,10 +34,11 @@ export default function Home() {
                   We can provide to you this resource to help you to manage the flow of developers in your projects.
                 </h5>
 
-                <button className='primary-button mt-8'>
-                  <span>Acess the Platform</span>
-                  <HiChevronRight className='text-secondary-main' />
-                </button>
+                <Button variant='PRIMARY' className='mt-8'>
+                  <div className='flex justify-center items-center'>
+                    <p>Acess the Platform</p>
+                  </div>
+                </Button>
               </div>
 
               <div className='flex justify-end items-center'>
@@ -53,10 +54,11 @@ export default function Home() {
               <Image className='w-[400px]' src={PeopleWorkingIllustration} alt='People Working Illustration' />
             </div>
             <div className='flex flex-col items-start'>
-              <small className='font-bold text-primary-main uppercase'>
-                Facilities
-              </small>
-              <h2 className='font-semibold'>Built for daily basis</h2>
+              <Title
+                subtitle='Facilities'
+                title='Built for daily basis'
+              />
+
               <p className='mt-1 text-light-dark text-xl'>
                 Application built thinking on solutions of the daily developer&apos;s problems.
                 The advantages we can give for your Company:
@@ -71,14 +73,13 @@ export default function Home() {
                   ))
                 }
               </div>
-              <button className='primary-button mt-6'>
-                Guarantee access
-              </button>
+              <Button variant='PRIMARY' className='primary-button mt-6'>
+                <span>Guarantee access</span>
+              </Button>
             </div>
           </div>
         </div>
-      </main>
-      <Footer />
-    </>
+      </>
+    </Layout>
   );
 }

@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import AddDeveloperToRoleUseCase from '../../useCases/AddDeveloperToRoleUseCase';
+import AddDeveloperToRoleService from '../../services/AddDeveloperToRoleService';
 
 class AddDeveloperToRoleController {
   async handle(req: Request, res: Response) {
-    const { roleId } = req.params;
+    const { id: roleId } = req.params;
     const { developerId } = req.body;
 
-    const developer = await AddDeveloperToRoleUseCase.execute({ roleId, developerId });
+    const developer = await AddDeveloperToRoleService.execute({ roleId, developerId });
     return res.json(developer);
   }
 }

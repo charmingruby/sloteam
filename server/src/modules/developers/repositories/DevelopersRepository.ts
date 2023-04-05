@@ -1,12 +1,12 @@
 import { prisma } from '../../../libs/prisma';
-import { DevelopersDTO } from '../dtos/DevelopersDTO';
+import { DevelopersType } from '../types/DevelopersType';
 
 class DevelopersRepository {
   async index() {
     return await prisma.developer.findMany();
   }
 
-  async create({ name, lastName, age, iconPath, email }: DevelopersDTO) {
+  async create({ name, lastName, age, iconPath, email }: DevelopersType) {
     return await prisma.developer.create({
       data: {
         name: name,
@@ -49,7 +49,7 @@ class DevelopersRepository {
     });
   }
 
-  async update({ id, name, lastName, age, iconPath, email }: DevelopersDTO) {
+  async update({ id, name, lastName, age, iconPath, email }: DevelopersType) {
     return await prisma.developer.update({
       where: {
         id: id

@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 
-import CreateTechnologyUseCase from '../../useCases/CreateTechnologyUseCase';
+import CreateTechnologyService from '../../services/CreateTechnologyService';
 
 class CreateTechnologyController {
   async handle(req: Request, res: Response) {
     const { name, areas, description } = req.body;
 
-    const technology = await CreateTechnologyUseCase.execute({ name, areas, description });
+    const technology = await CreateTechnologyService.execute({ name, description });
 
     return res.json(technology);
   }

@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import DeleteRoleUseCase from '../../useCases/DeleteRoleUseCase';
+import DeleteRoleService from '../../services/DeleteRoleService';
 
 class DeleteRoleController {
   async handle(req: Request, res: Response) {
-    const { roleId } = req.params;
-    const role = await DeleteRoleUseCase.execute(roleId);
+    const { id: roleId } = req.params;
+    const role = await DeleteRoleService.execute(roleId);
     return res.sendStatus(204);
   }
 }

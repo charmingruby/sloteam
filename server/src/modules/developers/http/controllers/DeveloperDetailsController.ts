@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import DeveloperDetailsUseCase from '../../useCases/DeveloperDetailsUseCase';
+import DeveloperDetailsService from '../../services/DeveloperDetailsService';
 
 class DeveloperDetailsController {
   async handle(req: Request, res: Response) {
     const { id } = req.params;
 
-    const developer = await DeveloperDetailsUseCase.execute(id);
+    const developer = await DeveloperDetailsService.execute(id);
 
     return res.json(developer);
   }

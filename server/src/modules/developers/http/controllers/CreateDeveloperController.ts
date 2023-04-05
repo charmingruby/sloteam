@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import CreateDeveloperUseCase from '../../useCases/CreateDeveloperUseCase';
+import CreateDeveloperService from '../../services/CreateDeveloperService';
 
 class CreateDeveloperController {
   async handle(req: Request, res: Response) {
@@ -9,7 +9,7 @@ class CreateDeveloperController {
       const { name, lastName, email } = req.body;
       const iconPath = req.file.filename;
       const age = parseInt(req.body.age);
-      const developer = await CreateDeveloperUseCase.execute({ name, lastName, age, iconPath, email });
+      const developer = await CreateDeveloperService.execute({ name, lastName, age, iconPath, email });
       return res.json(developer);
     }
   }

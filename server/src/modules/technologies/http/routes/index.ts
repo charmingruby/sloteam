@@ -1,31 +1,18 @@
-import { Request, Response, Router } from 'express';
-
+import { Router } from 'express';
 import { isAuthenticated } from '../../../../middlewares/isAuthenticated';
 
 import CreateTechnologyController from '../controllers/CreateTechnologyController';
+import TechnologyDetailsController from '../controllers/TechnologyDetailsController';
+import ListTechnologiesController from '../controllers/ListTechnologiesController';
+import DeleteTechnologyController from '../controllers/DeleteTechnologyController';
+import UpdateTechnologyController from '../controllers/UpdateTechnologyController';
 
 const technologiesRouter = Router();
 
-// Get all projects
-technologiesRouter.get('/technologies', (req: Request, res: Response) =>
-  res.json({ ok: 'Get all technology' })
-);
-
+technologiesRouter.get('/technologies', isAuthenticated, ListTechnologiesController.handle);
 technologiesRouter.post('/technologies', isAuthenticated, CreateTechnologyController.handle);
-
-// Edit technology
-technologiesRouter.put('/technologies/:id', (req: Request, res: Response) =>
-  res.json({ ok: 'Edit technology' })
-);
-
-// Get technology
-technologiesRouter.get('/technologies/:id', (req: Request, res: Response) =>
-  res.json({ ok: 'Get technology' })
-);
-
-// Delete technology
-technologiesRouter.delete('/technologies/:id', (req: Request, res: Response) =>
-  res.json({ ok: 'Delete technology' })
-);
+technologiesRouter.put('/technologies/:id', isAuthenticated, UpdateTechnologyController.handle);
+technologiesRouter.get('/technologies/:id', isAuthenticated, TechnologyDetailsController.handle);
+technologiesRouter.delete('/technologies/:id', isAuthenticated, DeleteTechnologyController.handle);
 
 export default technologiesRouter;

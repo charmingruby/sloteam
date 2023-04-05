@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import DeleteDeveloperUseCase from '../../useCases/DeleteDeveloperUseCase';
+import DeleteDeveloperService from '../../services/DeleteDeveloperService';
 
 class DeleteDeveloperController {
   async handle(req: Request, res: Response) {
     const { id } = req.params;
-    const developer = await DeleteDeveloperUseCase.execute(id);
+    const developer = await DeleteDeveloperService.execute(id);
     return res.sendStatus(204);
   }
 }

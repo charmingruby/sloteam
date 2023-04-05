@@ -13,11 +13,11 @@ const rolesRouter = Router();
 
 rolesRouter.post('/roles', isAuthenticated, CreateRoleController.handle);
 rolesRouter.get('/roles', isAuthenticated, ListRolesController.handle);
-rolesRouter.put('/roles/:roleId', isAuthenticated, UpdateRoleController.handle);
-rolesRouter.get('/roles/:roleId', isAuthenticated, RoleDetailsController.handle);
-rolesRouter.delete('/roles/:roleId', isAuthenticated, DeleteRoleController.handle);
+rolesRouter.put('/roles/:id', isAuthenticated, UpdateRoleController.handle);
+rolesRouter.get('/roles/:id', isAuthenticated, RoleDetailsController.handle);
+rolesRouter.delete('/roles/:id', isAuthenticated, DeleteRoleController.handle);
 
-rolesRouter.post('/roles/:roleId/add-developer', isAuthenticated, AddDeveloperToRoleController.handle);
-rolesRouter.delete('/roles/:roleId/remove-developer', isAuthenticated, RemoveDeveloperFromRoleController.handle);
+rolesRouter.post('/roles/:id/add-developer', isAuthenticated, AddDeveloperToRoleController.handle);
+rolesRouter.delete('/roles/:id/remove-developer', isAuthenticated, RemoveDeveloperFromRoleController.handle);
 
 export default rolesRouter;

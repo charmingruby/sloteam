@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import UpdateRoleUseCase from '../../useCases/UpdateRoleUseCase';
+import UpdateRoleService from '../../services/UpdateRoleService';
 
 class UpdateRoleController {
   async handle(req: Request, res: Response) {
-    const { roleId } = req.params;
+    const { id: roleId } = req.params;
     const { name } = req.body;
-    const role = await UpdateRoleUseCase.execute({ name, roleId });
+    const role = await UpdateRoleService.execute({ name, roleId });
     return res.json(role);
   }
 }

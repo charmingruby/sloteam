@@ -1,11 +1,5 @@
-import { Developer } from '@prisma/client';
 import { prisma } from '../../../libs/prisma';
-import { RolesDTO } from '../dtos/RolesDTO';
-
-interface UpdateRoleTypes {
-  name: string
-  roleId: string
-}
+import { RolesType } from '../types/RolesType';
 
 interface DeveloperRoleTypes {
   roleId: string
@@ -56,7 +50,7 @@ class RolesRepository {
     });
   }
 
-  async create({ name }: RolesDTO) {
+  async create({ name }: RolesType) {
     return await prisma.role.create({
       data: {
         name: name
@@ -68,10 +62,10 @@ class RolesRepository {
     });
   }
 
-  async update({ name, roleId }: UpdateRoleTypes) {
+  async update({ name, id }: RolesType) {
     return await prisma.role.update({
       where: {
-        id: roleId
+        id: id
       },
       data: {
         name: name
@@ -91,7 +85,7 @@ class RolesRepository {
     });
   }
 
-  async findByName({ name }: RolesDTO) {
+  async findByName({ name }: RolesType) {
     return await prisma.role.findFirst({
       where: {
         name: name

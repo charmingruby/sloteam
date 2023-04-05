@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import CreateUserUseCase from '../../useCases/CreateUserUseCase';
+import CreateUserService from '../../services/CreateUserService';
 
 class CreateUserController {
   async handle(req: Request, res: Response) {
@@ -10,7 +10,7 @@ class CreateUserController {
     else {
       const imagePath = req.file.filename;
       const { name, email, password } = req.body;
-      const user = await CreateUserUseCase.execute({ name, email, password, imagePath });
+      const user = await CreateUserService.execute({ name, email, password, imagePath });
       return res.json(user);
     }
   }

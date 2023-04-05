@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import ListDevelopersUseCase from '../../useCases/ListDevelopersUseCase';
+import ListDevelopersService from '../../services/ListDevelopersService';
 
 class ListDevelopersController {
   async handle(req: Request, res: Response) {
-    const developers = await ListDevelopersUseCase.execute();
+    const developers = await ListDevelopersService.execute();
     return res.json(developers);
   }
 }

@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import RoleDetailsUseCase from '../../useCases/RoleDetailsUseCase';
+import RoleDetailsService from '../../services/RoleDetailsService';
 
 class RoleDetailsController {
   async handle(req: Request, res: Response) {
-    const { roleId } = req.params;
-    const role = await RoleDetailsUseCase.execute(roleId);
+    const { id: roleId } = req.params;
+    const role = await RoleDetailsService.execute(roleId);
     return res.json(role);
   }
 }

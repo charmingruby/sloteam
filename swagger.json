@@ -1,0 +1,18 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Sloteam",
+    "description": "Projects Management System",
+    "version": "3.0.0"
+  },
+  "basePath": "/",
+  "paths": {
+    "/users": {
+      "post": {
+        "parameters": {
+
+        }
+      }
+    }
+  }
+}

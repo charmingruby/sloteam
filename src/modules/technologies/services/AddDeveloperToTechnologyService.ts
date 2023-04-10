@@ -1,5 +1,5 @@
 import DevelopersRepository from '../../developers/repositories/DevelopersRepository';
-import TechnologiesRepository from '../repositories/TechnologiesRepository';
+import TechnologiesRepository from './../infra/repositories/TechnologiesRepository';
 
 interface RequestTypes {
   id: string

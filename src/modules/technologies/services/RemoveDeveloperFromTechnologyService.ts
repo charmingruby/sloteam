@@ -1,4 +1,4 @@
-import TechnologiesRepository from "../repositories/TechnologiesRepository"
+import TechnologiesRepository from '../infra/repositories/prisma/TechnologiesRepository';
 import DevelopersRepository from '../../developers/repositories/DevelopersRepository';
 
 class RemoveDeveloperFromTechnologyService {
@@ -15,7 +15,7 @@ class RemoveDeveloperFromTechnologyService {
 
     const developerIsAlreadyInTechnology = await TechnologiesRepository.checkDeveloperInTechnology(id, developerId);
     if (!developerIsAlreadyInTechnology) {
-      throw new Error("This developer isn't in this technology");
+      throw new Error('This developer isn\'t in this technology');
     }
 
     const technology = await TechnologiesRepository.removeDeveloperFromTechnology(id, developerId);
@@ -23,4 +23,4 @@ class RemoveDeveloperFromTechnologyService {
   }
 }
 
-export default new RemoveDeveloperFromTechnologyService()
+export default new RemoveDeveloperFromTechnologyService();

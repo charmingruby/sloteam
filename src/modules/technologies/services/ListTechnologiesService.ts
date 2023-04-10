@@ -1,10 +1,12 @@
-import TechnologiesRepository from '../repositories/TechnologiesRepository';
+import { ITechnologiesRepository } from '../domain/repositories/ITechnologiesRepository';
 
-class ListTechnologiesService {
+export class ListTechnologiesService {
+  constructor(
+    private technologiesRepository: ITechnologiesRepository
+  ) {}
+
   async execute() {
-    const technologies = await TechnologiesRepository.index();
+    const technologies = await this.technologiesRepository.index();
     return technologies;
   }
 }
-
-export default new ListTechnologiesService();

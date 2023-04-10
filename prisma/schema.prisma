@@ -21,46 +21,35 @@ model User {
 }
 
 model Developer {
-  id           String            @id @default(uuid())
+  id           String                   @id @default(uuid())
   name         String
   last_name    String
   age          Int
   icon         String
   email        String
   technologies DevelopersTechnologies[]
-  projects     Project[]
   roles        DevelopersRoles[]
+  projects ProjectsDevelopers[]
 
-  created_at DateTime? @default(now())
-  updated_at DateTime? @default(now())
+  created_at         DateTime?            @default(now())
+  updated_at         DateTime?            @default(now())
 
   @@map("developers")
 }
 
 model Technology {
-  id          String @id @default(uuid())
+  id          String                   @id @default(uuid())
   name        String
   description String
-  developers DevelopersTechnologies[]
+  developers  DevelopersTechnologies[]
 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  project     Project?    @relation(fields: [project_id], references: [id])
-  project_id  String?
+  project    Project? @relation(fields: [project_id], references: [id])
+  project_id String?
 
   @@map("technologies")
-}
-
-model DevelopersTechnologies {
-  developer   Developer @relation(fields: [developerId], references: [id])
-  developerId String
-  technology Technology @relation(fields: [technologyId], references: [id])
-  technologyId String
-
-  @@id([developerId, technologyId])
-  @@map("developers_technologies")
-
 }
 
 model Role {
@@ -74,6 +63,21 @@ model Role {
   @@map("roles")
 }
 
+model Project {
+  id           String       @id @default(uuid())
+  name         String
+  description  String[]
+  development  Boolean      @default(false)
+  icon         String
+  technologies Technology[]
+  developers ProjectsDevelopers[]
+
+  created_at         DateTime?            @default(now())
+  updated_at         DateTime?            @default(now())
+
+  @@map("projects")
+}
+
 model DevelopersRoles {
   developer   Developer @relation(fields: [developerId], references: [id])
   developerId String
@@ -84,16 +88,22 @@ model DevelopersRoles {
   @@map("developers_roles")
 }
 
-model Project {
-  id           String       @id @default(uuid())
-  name         String
-  description  String[]
-  icon         String
-  developers   Developer[]
-  technologies Technology[]
+model DevelopersTechnologies {
+  developer    Developer  @relation(fields: [developerId], references: [id])
+  developerId  String
+  technology   Technology @relation(fields: [technologyId], references: [id])
+  technologyId String
 
-  created_at DateTime? @default(now())
-  updated_at DateTime? @default(now())
+  @@id([developerId, technologyId])
+  @@map("developers_technologies")
+}
 
-  @@map("projects")
+model ProjectsDevelopers {
+  project     Project   @relation(fields: [projectId], references: [id])
+  projectId   String
+  developer   Developer @relation(fields: [developerId], references: [id])
+  developerId String
+
+  @@id([projectId, developerId])
+  @@map("projects_developers")
 }

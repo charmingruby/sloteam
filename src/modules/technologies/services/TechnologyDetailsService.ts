@@ -1,8 +1,12 @@
-import TechnologiesRepository from '../repositories/TechnologiesRepository';
+import { ITechnologiesRepository } from '../domain/repositories/ITechnologiesRepository';
 
-class TechnologyDetailsService {
+export class TechnologyDetailsService {
+  constructor(
+    private technologiesRepository: ITechnologiesRepository
+  ) {}
+
   async execute(id: string) {
-    const technology = await TechnologiesRepository.findById(id);
+    const technology = await this.technologiesRepository.findById(id);
 
     if (!technology) {
       throw new Error('This technology doesn\'t exists');
@@ -11,5 +15,3 @@ class TechnologyDetailsService {
     return technology;
   }
 }
-
-export default new TechnologyDetailsService();

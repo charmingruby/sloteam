@@ -1,16 +1,21 @@
-import TechnologiesRepository from '../repositories/TechnologiesRepository';
-import { TechnologyType } from '../types/TechnologyType';
+import { IUpdateTechnologyData } from '../domain/models/IUpdateTechnologyData.model';
+import { ITechnologiesRepository } from '../domain/repositories/ITechnologiesRepository';
 
-class UpdateTechnologyService {
-  async execute({ id, name, description }: TechnologyType) {
+export class UpdateTechnologyService {
+  constructor(
+    private technologiesRepository: ITechnologiesRepository
+  ) {}
+
+  async execute({ id, name, description }: IUpdateTechnologyData) {
+    const technologyExists = this.technologiesRepository.findById(id);
+    if(!technologyExists) {
+      throw new Error('This technology doesn\'t exists');
+    }
+
     if (!name && !description) {
       throw new Error('Nothing to change');
     }
 
-    const technology = await TechnologiesRepository.update({ id, name, description });
-    return technology;
+    await this.technologiesRepository.update({ id, name, description });
   }
 }
-
-export default new UpdateTechnologyService();
-3;

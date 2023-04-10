@@ -1,10 +1,16 @@
-import TechnologiesRepository from '../repositories/TechnologiesRepository';
+import { ITechnologiesRepository } from '../domain/repositories/ITechnologiesRepository';
 
-class DeleteTechnologyService {
+export class DeleteTechnologyService {
+  constructor(
+    private technologiesRepository:  ITechnologiesRepository
+  ) {}
+
   async execute(id: string) {
-    const technology = await TechnologiesRepository.delete(id);
-    return technology;
+    const technologyExists = this.technologiesRepository.findById(id);
+    if(!technologyExists) {
+      throw new Error('This technology doesn\'t exists');
+    }
+
+    await this.technologiesRepository.delete(id);
   }
 }
-
-export default new DeleteTechnologyService();

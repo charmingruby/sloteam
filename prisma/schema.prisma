@@ -27,9 +27,9 @@ model Developer {
   age          Int
   icon         String
   email        String
-  technologies DevelopersTechnologies[]
-  roles        DevelopersRoles[]
-  projects ProjectsDevelopers[]
+  technologies Technology[]
+  roles        Role[]
+  projects Project[]
 
   created_at         DateTime?            @default(now())
   updated_at         DateTime?            @default(now())
@@ -41,13 +41,11 @@ model Technology {
   id          String                   @id @default(uuid())
   name        String
   description String
-  developers  DevelopersTechnologies[]
+  developers  Developer[]
+  projects Project[]
 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
-
-  project    Project? @relation(fields: [project_id], references: [id])
-  project_id String?
 
   @@map("technologies")
 }
@@ -55,7 +53,7 @@ model Technology {
 model Role {
   id         String            @id @default(uuid())
   name       String
-  developers DevelopersRoles[]
+  developers Developer[]
 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
@@ -67,43 +65,13 @@ model Project {
   id           String       @id @default(uuid())
   name         String
   description  String[]
-  development  Boolean      @default(false)
+  development  Boolean      @default(true)
   icon         String
   technologies Technology[]
-  developers ProjectsDevelopers[]
+  developers Developer[]
 
   created_at         DateTime?            @default(now())
   updated_at         DateTime?            @default(now())
 
   @@map("projects")
-}
-
-model DevelopersRoles {
-  developer   Developer @relation(fields: [developerId], references: [id])
-  developerId String
-  role        Role      @relation(fields: [roleId], references: [id])
-  roleId      String
-
-  @@id([developerId, roleId])
-  @@map("developers_roles")
-}
-
-model DevelopersTechnologies {
-  developer    Developer  @relation(fields: [developerId], references: [id])
-  developerId  String
-  technology   Technology @relation(fields: [technologyId], references: [id])
-  technologyId String
-
-  @@id([developerId, technologyId])
-  @@map("developers_technologies")
-}
-
-model ProjectsDevelopers {
-  project     Project   @relation(fields: [projectId], references: [id])
-  projectId   String
-  developer   Developer @relation(fields: [developerId], references: [id])
-  developerId String
-
-  @@id([projectId, developerId])
-  @@map("projects_developers")
 }

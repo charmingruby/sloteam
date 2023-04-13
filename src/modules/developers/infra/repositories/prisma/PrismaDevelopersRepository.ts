@@ -27,26 +27,9 @@ export class PrismaDevelopersRepository implements IDevelopersRepository {
         id
       },
       include: {
-        technologies: {
-          include: {
-            technology: {
-              select: {
-                id: true,
-                name: true,
-              }
-            }
-          }
-        },
-        roles: {
-          include: {
-            role: {
-              select: {
-                id: true,
-                name: true
-              }
-            }
-          }
-        }
+        roles: true,
+        technologies: true,
+        projects: true,
       }
     });
   }
@@ -77,7 +60,7 @@ export class PrismaDevelopersRepository implements IDevelopersRepository {
   async delete(id: string): Promise<void> {
     await prisma.developer.delete({
       where: {
-        id: id
+        id
       }
     });
   }

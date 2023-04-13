@@ -56,30 +56,46 @@ export class PrismaTechnologiesRepository implements ITechnologiesRepository {
   }
 
   async addDeveloperToTechnology({technologyId, developerId}: IDeveloperTechnologyData): Promise<void> {
-    await prisma.developersTechnologies.create({
-      data: {
-        technologyId,
-        developerId
-      }
-    });
-  }
-
-  async removeDeveloperFromTechnology({technologyId, developerId}: IDeveloperTechnologyData): Promise<void> {
-    await prisma.developersTechnologies.delete({
+    await prisma.technology.update({
       where: {
-        developerId_technologyId: {
-          developerId,
-          technologyId
+        id: technologyId
+      },
+
+      data: {
+        developers: {
+          connect: {
+            id: developerId
+          }
         }
       }
     });
   }
 
-  async checkDeveloperInTechnology({technologyId, developerId}: IDeveloperTechnologyData): Promise<IDeveloperTechnologyData | undefined> {
-    return await prisma.developersTechnologies.findFirst({
+  async removeDeveloperFromTechnology({technologyId, developerId}: IDeveloperTechnologyData): Promise<void> {
+    await prisma.technology.update({
       where: {
-        developerId,
-        technologyId
+        id: technologyId
+      },
+
+      data: {
+        developers: {
+          disconnect: {
+            id: developerId
+          }
+        }
+      }
+    });
+  }
+
+  async checkDeveloperInTechnology({technologyId, developerId}: IDeveloperTechnologyData): Promise<Technology | undefined> {
+    return await prisma.technology.findFirst({
+      where: {
+        id: technologyId,
+        developers: {
+          some: {
+            id: developerId
+          }
+        }
       }
     });
   }

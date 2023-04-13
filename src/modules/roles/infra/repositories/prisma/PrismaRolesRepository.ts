@@ -9,19 +9,7 @@ export class PrismaRolesRepository implements IRolesRepository {
   async index(): Promise<Role[] | undefined> {
     return await prisma.role.findMany({
       include: {
-        developers: {
-          include: {
-            developer: {
-              select: {
-                id: true,
-                name: true,
-                last_name: true,
-                email: true,
-                icon: true
-              }
-            }
-          }
-        }
+        developers: true
       },
     });
   }
@@ -32,27 +20,15 @@ export class PrismaRolesRepository implements IRolesRepository {
         id: roleId
       },
       include: {
-        developers: {
-          include: {
-            developer: {
-              select: {
-                id: true,
-                name: true,
-                last_name: true,
-                email: true,
-                icon: true
-              }
-            }
-          },
-        },
-      },
+        developers: true
+      }
     });
   }
 
   async findByName(name: string): Promise<Role | undefined> {
     return await prisma.role.findFirst({
       where: {
-        name: name
+        name
       },
     });
   }
@@ -60,27 +36,19 @@ export class PrismaRolesRepository implements IRolesRepository {
   async create({ name }: ICreateRoleData): Promise<void> {
     await prisma.role.create({
       data: {
-        name: name
+        name
       },
-      select: {
-        id: true,
-        name: true
-      }
     });
   }
 
   async update({ name, id }: IUpdateRoleData): Promise<void> {
     await prisma.role.update({
       where: {
-        id: id
+        id
       },
       data: {
-        name: name
+        name
       },
-      select: {
-        id: true,
-        name: true
-      }
     });
   }
 
@@ -93,20 +61,32 @@ export class PrismaRolesRepository implements IRolesRepository {
   }
 
   async addDeveloperToRole({ roleId, developerId }: IDeveloperRoleData): Promise<void> {
-    await prisma.developersRoles.create({
+    await prisma.role.update({
+      where: {
+        id: roleId
+      },
+
       data: {
-        roleId: roleId,
-        developerId: developerId
+        developers: {
+          connect: {
+            id: developerId
+          }
+        }
       }
     });
   }
 
   async removeDeveloperFromRole({ roleId, developerId }: IDeveloperRoleData): Promise<void> {
-    await prisma.developersRoles.delete({
+    await prisma.role.update({
       where: {
-        developerId_roleId: {
-          developerId: developerId,
-          roleId: roleId
+        id: roleId
+      },
+
+      data: {
+        developers: {
+          disconnect: {
+            id: developerId
+          }
         }
       }
     });
@@ -118,7 +98,7 @@ export class PrismaRolesRepository implements IRolesRepository {
         id: roleId,
         developers: {
           some: {
-            developerId: developerId
+            id: developerId
           }
         }
       },

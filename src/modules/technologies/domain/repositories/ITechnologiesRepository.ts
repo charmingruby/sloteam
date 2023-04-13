@@ -12,5 +12,5 @@ export interface ITechnologiesRepository {
   delete: (id: string) => Promise<void>
   addDeveloperToTechnology: (data: IDeveloperTechnologyData) => Promise<void>
   removeDeveloperFromTechnology: (data: IDeveloperTechnologyData) => Promise<void>
-  checkDeveloperInTechnology: (data: IDeveloperTechnologyData) => Promise<IDeveloperTechnologyData | null>
+  checkDeveloperInTechnology: (data: IDeveloperTechnologyData) => Promise<Technology | null>
 }

@@ -1,6 +1,7 @@
-import crypto from 'crypto';
+import { Entity } from '../../../../shared/core/entities/Entity';
 
 type DeveloperProps = {
+  id?: string
   name: string;
   last_name: string;
   age: number;
@@ -8,28 +9,20 @@ type DeveloperProps = {
   email: string;
 }
 
-export class Developer {
-  public id: string;
+export class Developer extends Entity {
   public name: string;
   public last_name: string;
   public age: number;
   public icon: string;
   public email: string;
-  public created_at: Date;
-  public updated_at: Date;
 
-  constructor(
-    {name, last_name, age, icon, email }: DeveloperProps,
-    id?: string) {
-    const actualTime = new Date();
+  constructor({id, name, last_name, age, icon, email }: DeveloperProps) {
+    super(id);
 
-    this.id = id ?? crypto.randomUUID();
     this.name = name;
     this.last_name = last_name;
     this.age = age;
     this.email = email;
     this.icon = icon;
-    this.created_at = actualTime;
-    this.updated_at = actualTime;
   }
 }

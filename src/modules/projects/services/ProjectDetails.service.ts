@@ -8,7 +8,7 @@ export class ProjectDetailsService {
   async execute(id: string) {
     const project = await this.projectsRepository.findById(id);
 
-    if(project) {
+    if(!project) {
       throw new Error('This project doesn\'t exists');
     }
 

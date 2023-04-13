@@ -1,32 +1,25 @@
-import crypto from 'crypto';
+import { Entity } from '../../../../shared/core/entities/Entity';
 
 type UserProps = {
+  id?: string
   name: string
   email: string
   password: string
   icon: string;
 }
 
-export class User {
-  public id: string;
+export class User extends Entity {
   public name: string;
   public email: string;
-  password: string;
+  public password: string;
   public icon: string;
-  public created_at: Date;
-  public updated_at: Date;
 
-  constructor(
-    {name, email, password, icon }: UserProps,
-    id?: string) {
-    const actualTime = new Date();
+  constructor({id, name, email, password, icon }: UserProps) {
+    super(id);
 
-    this.id = id ?? crypto.randomUUID();
     this.name = name;
     this.email = email;
     this.password = password;
     this.icon = icon;
-    this.created_at = actualTime;
-    this.updated_at = actualTime;
   }
 }

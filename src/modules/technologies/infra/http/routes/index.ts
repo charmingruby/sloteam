@@ -17,7 +17,7 @@ technologiesRouter.put('/technologies/:id', isAuthenticated, UpdateTechnologyCon
 technologiesRouter.get('/technologies/:id', isAuthenticated, TechnologyDetailsController.handle);
 technologiesRouter.delete('/technologies/:id', isAuthenticated, DeleteTechnologyController.handle);
 
-technologiesRouter.post('/technologies/:id/add-developer', isAuthenticated, AddDeveloperToTechnologyController.handle);
-technologiesRouter.delete('/technologies/:id/remove-developer', isAuthenticated, RemoveDeveloperFromTechnologyController.handle);
+technologiesRouter.post('/technologies/developers/:id', isAuthenticated, AddDeveloperToTechnologyController.handle);
+technologiesRouter.delete('/technologies/developers/:id', isAuthenticated, RemoveDeveloperFromTechnologyController.handle);
 
 export default technologiesRouter;

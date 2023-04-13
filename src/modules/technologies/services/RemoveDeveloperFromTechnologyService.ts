@@ -1,26 +1,36 @@
-import TechnologiesRepository from '../infra/repositories/prisma/TechnologiesRepository';
-import DevelopersRepository from '../../developers/repositories/DevelopersRepository';
+import { IDevelopersRepository } from '../../developers/domain/repositories/IDevelopersRepository';
+import { ITechnologiesRepository } from '../domain/repositories/ITechnologiesRepository';
 
-class RemoveDeveloperFromTechnologyService {
-  async execute(id: string, developerId: string) {
-    const technologyExists = TechnologiesRepository.findById(id);
+export class RemoveDeveloperFromTechnologyService {
+  constructor(
+    private technologiesRepository: ITechnologiesRepository,
+    private developersRepository: IDevelopersRepository
+  ) {}
+
+  async execute(technologyId: string, developerId: string) {
+    if(!technologyId) {
+      throw new Error('Technology ID is required');
+    }
+
+    if(!developerId) {
+      throw new Error('Developer ID is required');
+    }
+
+    const technologyExists = this.technologiesRepository.findById(technologyId);
     if (!technologyExists) {
       throw new Error('This technology doesn\'t exists');
     }
 
-    const developerExists = DevelopersRepository.findById(id);
+    const developerExists = this.developersRepository.findById(technologyId);
     if (!developerExists) {
       throw new Error('This developer doesn\'t exists');
     }
 
-    const developerIsAlreadyInTechnology = await TechnologiesRepository.checkDeveloperInTechnology(id, developerId);
+    const developerIsAlreadyInTechnology = await this.technologiesRepository.checkDeveloperInTechnology({technologyId, developerId});
     if (!developerIsAlreadyInTechnology) {
       throw new Error('This developer isn\'t in this technology');
     }
 
-    const technology = await TechnologiesRepository.removeDeveloperFromTechnology(id, developerId);
-    return technology;
+    await this.technologiesRepository.removeDeveloperFromTechnology({technologyId, developerId});
   }
 }
-
-export default new RemoveDeveloperFromTechnologyService();

@@ -17,7 +17,7 @@ rolesRouter.put('/roles/:id', isAuthenticated, UpdateRoleController.handle);
 rolesRouter.get('/roles/:id', isAuthenticated, RoleDetailsController.handle);
 rolesRouter.delete('/roles/:id', isAuthenticated, DeleteRoleController.handle);
 
-rolesRouter.post('/roles/:id/add-developer', isAuthenticated, AddDeveloperToRoleController.handle);
-rolesRouter.delete('/roles/:id/remove-developer', isAuthenticated, RemoveDeveloperFromRoleController.handle);
+rolesRouter.post('/roles/developers/:id', isAuthenticated, AddDeveloperToRoleController.handle);
+rolesRouter.delete('/roles/developers/:id', isAuthenticated, RemoveDeveloperFromRoleController.handle);
 
 export default rolesRouter;

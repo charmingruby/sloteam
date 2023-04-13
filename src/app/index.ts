@@ -8,8 +8,8 @@ import swaggerUI from 'swagger-ui-express';
 import swaggerDocument from '../../swagger.json';
 
 import UserRoutes from '../modules/users/infra/http/routes';
-import RolesRoutes from '../modules/roles/http/routes';
-import DevelopersRoutes from '../modules/developers/http/routes';
+import RolesRoutes from '../modules/roles/infra/http/routes';
+import DevelopersRoutes from '../modules/developers/infra/http/routes';
 import TechnologiesRoutes from '../modules/technologies/infra/http/routes';
 import ProjectsRoutes from '../modules/projects/infra/http/routes';
 

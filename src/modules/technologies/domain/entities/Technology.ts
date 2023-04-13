@@ -1,27 +1,22 @@
-import crypto from 'crypto';
+import { Entity } from '../../../../shared/core/entities/Entity';
 
 type TechnologyProps = {
+  id?: string
   name: string
   description: string
+  project_id: string
 }
 
-export class Technology {
-  public id: string;
+export class Technology extends Entity {
   public name: string;
   public description: string;
-  public created_at: Date | null;
-  public updated_at: Date | null;
   public project_id: string | null;
 
-  constructor(
-    {name, description }: TechnologyProps,
-    id?: string) {
-    const actualTime = new Date();
+  constructor({id, name, description, project_id }: TechnologyProps) {
+    super(id);
 
-    this.id = id ?? crypto.randomUUID();
     this.name = name;
     this.description = description;
-    this.created_at = actualTime;
-    this.updated_at = actualTime;
+    this.project_id = project_id;
   }
 }

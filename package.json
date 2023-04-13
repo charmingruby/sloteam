@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx src/shared/infra/http/server.ts",
     "build": "tsup src",
-    "start": "node dist/shared/infra/http/server.js",
+    "start": "node dist/src/shared/infra/http/server.js",
     "test": "jest"
   },
   "dependencies": {

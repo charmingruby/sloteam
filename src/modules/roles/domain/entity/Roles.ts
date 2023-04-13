@@ -1,25 +1,16 @@
-import crypto from 'crypto';
+import { Entity } from '../../../../shared/core/entities/Entity';
 
 type RoleProps = {
+  id?: string
   name: string
-  description: string[]
-  icon: string;
 }
 
-export class Role {
-  public id: string;
+export class Role extends Entity {
   public name: string;
-  public created_at: Date;
-  public updated_at: Date;
 
-  constructor(
-    {name}: RoleProps,
-    id?: string) {
-    const actualTime = new Date();
+  constructor({id, name}: RoleProps) {
+    super(id);
 
-    this.id = id ?? crypto.randomUUID();
     this.name = name;
-    this.created_at = actualTime;
-    this.updated_at = actualTime;
   }
 }

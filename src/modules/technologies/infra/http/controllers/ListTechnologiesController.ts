@@ -8,7 +8,7 @@ class ListTechnologiesController {
     const listTechnologies = new ListTechnologiesService(prismaRepository);
 
     try {
-      const technologies = listTechnologies.execute();
+      const technologies = await listTechnologies.execute();
 
       return res.status(200).json(technologies);
     } catch(err) {

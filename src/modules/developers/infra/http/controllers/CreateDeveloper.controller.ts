@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { CreateDeveloperService } from '../../../services/CreateDeveloper.service';
 import { PrismaDevelopersRepository } from '../../repositories/prisma/PrismaDevelopersRepository';
+import { FeedbackMessages } from '../../../../../shared/utils/feedbackMessages';
 
 class CreateDeveloperController {
   async handle(req: Request, res: Response) {
@@ -17,8 +18,12 @@ class CreateDeveloperController {
 
     try {
       await createDeveloper.execute({ name, last_name, age, icon, email });
+      const feedback = new FeedbackMessages('developer');
+      const message = feedback.added();
 
-      return res.status(201).send();
+      return res.status(201).json({
+        success: message
+      });
     } catch(err) {
       return res.status(400).json({
         error: err.message

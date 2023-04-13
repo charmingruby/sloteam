@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { PrismaTechnologiesRepository } from '../../repositories/prisma/PrismaTechnologiesRepository';
 import { PrismaDevelopersRepository } from '../../../../developers/infra/repositories/prisma/PrismaDevelopersRepository';
-import { AddDeveloperToTechnologyService } from '../../../services/AddDeveloperToTechnologyService';
+import { AddDeveloperToTechnologyService } from '../../../services/AddDeveloperToTechnology.service';
+import { FeedbackMessages } from '../../../../../shared/utils/feedbackMessages';
 
 class AddDeveloperToTechnologyController {
   async handle(req: Request, res: Response) {
@@ -14,9 +15,12 @@ class AddDeveloperToTechnologyController {
 
     try {
       await addDeveloperToTechnology.execute({ technologyId, developerId });
+      const feedback = new FeedbackMessages('technology', 'developer');
+      const message = feedback.referenced();
 
-      return res.status(201).send();
-    } catch(err) {
+      return res.status(201).json({
+        success: message
+      });    } catch(err) {
       return res.status(400).json({
         error: err.message
       });

@@ -1,5 +1,6 @@
 import { ICreateDeveloperData } from '../domain/models/ICreateDeveloperData.model';
 import { IDevelopersRepository } from '../domain/repositories/IDevelopersRepository';
+import { invalidateRedis } from '../../../shared/cache/RedisCache';
 
 export class CreateDeveloperService {
   constructor(
@@ -27,7 +28,9 @@ export class CreateDeveloperService {
     if (developerAlreadyExists)
       throw new Error('This e-mail is already in use');
 
-    await this.developersRepository.create({ name, last_name, age, icon, email });
-  }
+    invalidateRedis('sloteam-DEVELOPERS_LIST');
 
+    const developer = await this.developersRepository.create({ name, last_name, age, icon, email });
+    return developer;
+  }
 }

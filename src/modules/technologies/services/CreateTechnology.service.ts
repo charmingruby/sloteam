@@ -1,3 +1,4 @@
+import { invalidateRedis } from '../../../shared/cache/RedisCache';
 import { ICreateTechnologyData } from '../domain/models/ICreateTechnologyData';
 import { ITechnologiesRepository } from '../domain/repositories/ITechnologiesRepository';
 
@@ -19,6 +20,8 @@ export class CreateTechnologyService {
     if(technologyAlreadyExists) {
       throw new Error('This name is already in use');
     }
+
+    await invalidateRedis('sloteam-TECHNOLOGIES_LIST');
 
     await this.technologiesRepository.create({ name, description });
   }

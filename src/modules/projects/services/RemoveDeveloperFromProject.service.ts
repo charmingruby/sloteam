@@ -1,6 +1,7 @@
 import { IDevelopersRepository } from '../../developers/domain/repositories/IDevelopersRepository';
 import { IDeveloperProjectData } from '../domain/models/IDeveloperProjectData';
 import { IProjectsRepository } from '../domain/repositories/IProjectsRepository';
+import { invalidateRedis } from '../../../shared/cache/RedisCache';
 
 export class RemoveDeveloperFromProjectService {
   constructor(
@@ -31,6 +32,8 @@ export class RemoveDeveloperFromProjectService {
     if(!developerIsInProject) {
       throw new Error('This developer isn\'t in this project');
     }
+
+    invalidateRedis('sloteam-PROJECTS_LIST');
 
     await this.projectsRepository.removeDeveloperFromProject({projectId, developerId});
   }

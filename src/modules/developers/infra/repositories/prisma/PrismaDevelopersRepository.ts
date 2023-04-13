@@ -9,8 +9,8 @@ export class PrismaDevelopersRepository implements IDevelopersRepository {
     return await prisma.developer.findMany();
   }
 
-  async create({ name, last_name, age, icon, email }: ICreateDeveloperData): Promise<void>{
-    await prisma.developer.create({
+  async create({ name, last_name, age, icon, email }: ICreateDeveloperData): Promise<Developer | undefined>{
+    return await prisma.developer.create({
       data: {
         name,
         last_name,

@@ -1,5 +1,6 @@
 import { IProjectsRepository } from '../domain/repositories/IProjectsRepository';
 import { ICreateProjectData } from '../domain/models/ICreateProjectData.model';
+import { invalidateRedis } from '../../../shared/cache/RedisCache';
 
 export class CreateProjectService {
   constructor(
@@ -20,6 +21,8 @@ export class CreateProjectService {
     if(projectAlreadyExists) {
       throw new Error('This name is already in use');
     }
+
+    invalidateRedis('sloteam-PROJECTS_LIST');
 
     await this.projectsRepository.create({
       name, description, icon

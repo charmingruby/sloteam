@@ -1,6 +1,7 @@
 import { IDevelopersRepository } from '../../developers/domain/repositories/IDevelopersRepository';
 import { IDeveloperRoleData } from '../domain/models/IDeveloperRoleData.model';
 import { IRolesRepository } from '../domain/repositories/IRolesRepository';
+import { invalidateRedis } from '../../../shared/cache/RedisCache';
 
 export class RemoveDeveloperFromRoleService {
   constructor(
@@ -27,6 +28,8 @@ export class RemoveDeveloperFromRoleService {
     if (!developerIsAlreadyInRole) {
       throw new Error('This developer ins\'t  in this role');
     }
+
+    await invalidateRedis('sloteam-ROLES_LIST');
 
     await this.rolesRepository.removeDeveloperFromRole({ roleId, developerId });
   }

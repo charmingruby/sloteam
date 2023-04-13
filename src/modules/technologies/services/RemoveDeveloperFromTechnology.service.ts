@@ -1,5 +1,6 @@
 import { IDevelopersRepository } from '../../developers/domain/repositories/IDevelopersRepository';
 import { ITechnologiesRepository } from '../domain/repositories/ITechnologiesRepository';
+import { invalidateRedis } from '../../../shared/cache/RedisCache';
 
 export class RemoveDeveloperFromTechnologyService {
   constructor(
@@ -30,6 +31,8 @@ export class RemoveDeveloperFromTechnologyService {
     if (!developerIsAlreadyInTechnology) {
       throw new Error('This developer isn\'t in this technology');
     }
+
+    await invalidateRedis('sloteam-TECHNOLOGIES_LIST');
 
     await this.technologiesRepository.removeDeveloperFromTechnology({technologyId, developerId});
   }

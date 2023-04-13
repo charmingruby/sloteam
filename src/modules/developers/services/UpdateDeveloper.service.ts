@@ -1,3 +1,4 @@
+import { invalidateRedis } from '../../../shared/cache/RedisCache';
 import { IUpdateDeveloperData } from '../domain/models/IUpdateDeveloperData.model';
 import { IDevelopersRepository } from '../domain/repositories/IDevelopersRepository';
 
@@ -15,6 +16,8 @@ export class UpdateDeveloperService {
     if (!name && !last_name && !age && !icon && !email) {
       throw new Error('Nothing to change');
     }
+
+    invalidateRedis('sloteam-DEVELOPERS_LIST');
 
     await this.developersRepository.update({ id, name, last_name, age, icon, email });
   }

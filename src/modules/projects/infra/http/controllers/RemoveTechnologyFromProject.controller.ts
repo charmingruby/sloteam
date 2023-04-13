@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { PrismaProjectsRepository } from '../../repositories/prisma/PrismaProjectsRepository';
 import { PrismaTechnologiesRepository } from '../../../../technologies/infra/repositories/prisma/PrismaTechnologiesRepository';
 import { RemoveTechnologyFromProjectService } from '../../../services/RemoveTechnologyFromProject.service';
+import { FeedbackMessages } from '../../../../../shared/utils/feedbackMessages';
 
 class RemoveTechnologyFromProjectController {
   async handle(req: Request, res: Response) {
@@ -14,8 +15,12 @@ class RemoveTechnologyFromProjectController {
 
     try {
       await removeTechnologyFromProject.execute({projectId, technologyId});
+      const feedback = new FeedbackMessages('project', 'technology');
+      const message = feedback.unreferenced();
 
-      return res.status(204).send();
+      return res.status(204).json({
+        success: message
+      });
     } catch(err) {
       return res.status(400).json({
         error: err.message

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { PrismaProjectsRepository } from '../../repositories/prisma/PrismaProjectsRepository';
 import { UpdateProjectService } from '../../../services/UpdateProject.service';
+import { FeedbackMessages } from '../../../../../shared/utils/feedbackMessages';
 
 class UpdateProjectController {
   async handle(req: Request, res: Response) {
@@ -20,7 +21,12 @@ class UpdateProjectController {
         id, description, icon
       });
 
-      res.status(202).send();
+      const feedback = new FeedbackMessages('project');
+      const message = feedback.updated();
+
+      return res.status(202).json({
+        success: message
+      });
     } catch(err) {
       return res.status(400).json({
         error: err.message

@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import { isAuthenticated } from '../../../../../shared/infra/http/middlewares/isAuthenticated';
 
-import CreateTechnologyController from '../controllers/CreateTechnologyController';
-import TechnologyDetailsController from '../controllers/TechnologyDetailsController';
-import ListTechnologiesController from '../controllers/ListTechnologiesController';
-import DeleteTechnologyController from '../controllers/DeleteTechnologyController';
-import UpdateTechnologyController from '../controllers/UpdateTechnologyController';
-import AddDeveloperToTechnologyController from '../controllers/AddDeveloperToTechnologyController';
-import RemoveDeveloperFromTechnologyController from '../controllers/RemoveDeveloperFromTechnologyController';
+import CreateTechnologyController from '../controllers/CreateTechnology.controller';
+import TechnologyDetailsController from '../controllers/TechnologyDetails.controller';
+import ListTechnologiesController from '../controllers/ListTechnologies.controller';
+import DeleteTechnologyController from '../controllers/DeleteTechnology.controller';
+import UpdateTechnologyController from '../controllers/UpdateTechnology.controller';
+import AddDeveloperToTechnologyController from '../controllers/AddDeveloperToTechnology.controller';
+import RemoveDeveloperFromTechnologyController from '../controllers/RemoveDeveloperFromTechnology.controller';
 
 const technologiesRouter = Router();
 

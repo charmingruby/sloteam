@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { PrismaTechnologiesRepository } from '../../repositories/prisma/PrismaTechnologiesRepository';
-import { ListTechnologiesService } from '../../../services/ListTechnologiesService';
+import { ListTechnologiesService } from '../../../services/ListTechnologies.service';
 
 class ListTechnologiesController {
   async handle(req: Request, res: Response) {

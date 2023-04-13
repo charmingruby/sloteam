@@ -1,5 +1,6 @@
 import { IUpdateRoleData } from '../domain/models/IUpdateRoleData.model';
 import { IRolesRepository } from '../domain/repositories/IRolesRepository';
+import { invalidateRedis } from '../../../shared/cache/RedisCache';
 
 export class UpdateRoleService {
   constructor(
@@ -14,6 +15,8 @@ export class UpdateRoleService {
     if(!name) {
       throw new Error('Nothing to change');
     }
+
+    await invalidateRedis('sloteam-ROLES_LIST');
 
     await this.rolesRepository.update({ name, id });
   }

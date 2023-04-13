@@ -1,6 +1,7 @@
 import { ITechnologiesRepository } from '../../technologies/domain/repositories/ITechnologiesRepository';
 import { ITechnologyProjectData } from '../domain/models/ITechnologyProjectData.model';
 import { IProjectsRepository } from '../domain/repositories/IProjectsRepository';
+import { invalidateRedis } from '../../../shared/cache/RedisCache';
 
 export class AddTechnologyToProjectService {
   constructor(
@@ -31,6 +32,8 @@ export class AddTechnologyToProjectService {
     if(technologyIsAlreadyInProject) {
       throw new Error('This technology is already in this project');
     }
+
+    invalidateRedis('sloteam-PROJECTS_LIST');
 
     this.projectsRepository.addTechnologyToProject({projectId, technologyId});
   }

@@ -1,3 +1,4 @@
+import { invalidateRedis } from '../../../shared/cache/RedisCache';
 import { IDevelopersRepository } from '../../developers/domain/repositories/IDevelopersRepository';
 import { IDeveloperProjectData } from '../domain/models/IDeveloperProjectData';
 import { IProjectsRepository } from '../domain/repositories/IProjectsRepository';
@@ -32,6 +33,8 @@ export class AddDeveloperToProjectService {
     if(developerIsAlreadyInProject) {
       throw new Error('This developer is already in this project');
     }
+
+    invalidateRedis('sloteam-PROJECTS_LIST');
 
     await this.projectsRepository.addDeveloperToProject({projectId, developerId});
   }

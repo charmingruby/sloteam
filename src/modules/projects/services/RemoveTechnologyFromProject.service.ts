@@ -1,6 +1,7 @@
 import { ITechnologiesRepository } from '../../technologies/domain/repositories/ITechnologiesRepository';
 import { ITechnologyProjectData } from '../domain/models/ITechnologyProjectData.model';
 import { IProjectsRepository } from '../domain/repositories/IProjectsRepository';
+import { invalidateRedis } from '../../../shared/cache/RedisCache';
 
 export class RemoveTechnologyFromProjectService {
   constructor(
@@ -31,6 +32,8 @@ export class RemoveTechnologyFromProjectService {
     if(!technologyIsInProject) {
       throw new Error('This technology isn\'t in this project');
     }
+
+    invalidateRedis('sloteam-PROJECTS_LIST');
 
     await this.projectsRepository.removeTechnologyFromProject({projectId, technologyId});
   }
